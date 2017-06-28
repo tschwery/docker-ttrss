@@ -24,7 +24,7 @@ services:
 
   ttrss:
     restart: on-failure
-    build: docker-ttrss
+    image: tschwery/ttrss
     depends_on:
     - postgresql
     ports:
