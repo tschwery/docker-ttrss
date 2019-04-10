@@ -1,13 +1,13 @@
-FROM alpine
+FROM alpine:3.9
 MAINTAINER Thomas Schwery <thomas@inf3.ch>
 
 RUN apk add --no-cache --virtual .fetch-deps \
-        nginx php5-fpm php5-mcrypt  php5-pcntl php5-openssl \
-        php5-gmp php5-pdo_odbc php5-json php5-dom php5-pdo php5-zip \
-        php5-pgsql php5-pdo_pgsql php5-bcmath php5-gd php5-odbc \
-        php5-gettext php5-xmlreader php5-xmlrpc \
-        php5-bz2 php5-iconv php5-pdo_dblib php5-posix \
-        php5-curl php5-ctype curl supervisor
+        nginx php7-fpm php7-mcrypt  php7-pcntl php7-openssl \
+        php7-gmp php7-pdo_odbc php7-json php7-dom php7-pdo php7-zip \
+        php7-pgsql php7-pdo_pgsql php7-bcmath php7-gd php7-odbc \
+        php7-gettext php7-xmlreader php7-xmlrpc \
+        php7-bz2 php7-iconv php7-pdo_dblib php7-posix \
+        php7-curl php7-ctype php7-mbstring php7-fileinfo php7-session php7 curl supervisor
 
 # add ttrss as the only nginx site
 ADD conf/ttrss.nginx.conf /etc/nginx/sites-available/ttrss
@@ -21,7 +21,7 @@ RUN cp config.php-dist config.php
 
 RUN mkdir /run/nginx && chown nginx:www-data -R /run/nginx
 
-ADD conf/php5-fpm.conf /etc/php5/fpm.d/default.conf
+ADD conf/php7-fpm.conf /etc/php7/php-fpm.d/default.conf
 
 # expose only nginx HTTP port
 EXPOSE 80
@@ -37,4 +37,4 @@ ENV DB_PASS ttrss
 # always re-configure database with current ENV when RUNning container, then monitor all services
 ADD configure-db.php /configure-db.php
 ADD conf/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-CMD php5 /configure-db.php && supervisord -c /etc/supervisor/conf.d/supervisord.conf
+CMD php7 /configure-db.php && supervisord -c /etc/supervisor/conf.d/supervisord.conf

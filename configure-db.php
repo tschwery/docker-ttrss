@@ -1,4 +1,4 @@
-#!/usr/bin/env php5
+#!/usr/bin/env php7
 <?php
 // Taken from clue/docker-ttrss and modified
 $confpath = '/var/www/config.php';
@@ -8,7 +8,7 @@ $config = array();
 // path to ttrss
 $config['SELF_URL_PATH'] = env('SELF_URL_PATH', 'http://localhost');
 
-$config['PHP_EXECUTABLE'] = env('PHP_EXECUTABLE', '/usr/bin/php5');
+$config['PHP_EXECUTABLE'] = env('PHP_EXECUTABLE', '/usr/bin/php7');
 
 if (getenv('DB_TYPE') !== false) {
     $config['DB_TYPE'] = getenv('DB_TYPE');
